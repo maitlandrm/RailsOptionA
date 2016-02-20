@@ -1,0 +1,19 @@
+<h1>Login</h1>
+<% if flash[:error] %>
+<p><%= flash[:error] %></p>
+<% end %>
+<fieldset>
+	<form method = 'post' action = '/notsessions'>
+		<input type = 'hidden' name = 'authenticity_token' value = '<%= form_authenticity_token %>'/>
+		<label>Email</label>
+		<br>
+		<input name = 'email'/>
+		<br><br>
+		<label>Password</label>
+		<br>
+		<input type = 'password' name = 'password'/>
+		<br><br>
+		<input type = 'submit' value = 'Login' />
+	</form>
+</fieldset>
+<a href="/">Click here to register</a>

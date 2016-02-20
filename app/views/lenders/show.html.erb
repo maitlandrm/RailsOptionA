@@ -1,0 +1,70 @@
+<p>Name: <%= @lender.first_name + " " + @lender.last_name %></p>
+<p>Account Balance: <%= @lender.money %></p>
+
+<% if flash[:error] %>
+<p><%= flash[:error] %></p>
+<% end %>
+<h1>List of people in need of help</h1>
+<table>
+	<th>Name</th>
+	<th>Purpose</th>
+	<th>Description of Purpose</th>
+	<th>Amount needed</th>
+	<th>Amount Raised</th>
+	<th>Action</th>
+	<% @borrowers.each do |b| %>
+	<tr>
+		<td><%= b.first_name + " " + b.last_name %></td>
+		<td><%= b.purpose %></td>
+		<td><%= b.description %></td>
+		<td><%= b.money %></td>
+		<td><%= b.raised %></td>
+		<td>
+			<form action = '/histories' method = 'post'>
+				<input type = 'hidden' name = 'authenticity_token' value = '<%= form_authenticity_token %>'/>
+				<input type = 'hidden' name = 'borrower_id' value = '<%= b.id %>' />
+				<select name = 'amount'>
+					<option value = '25'>$25</option>
+					<option value = '50'>$50</option>
+					<option value = '75'>$75</option>
+					<option value = '100'>$100</option>
+					<option value = '150'>$150</option>
+					<option value = '200'>$200</option>
+					<option value = '250'>$250</option>
+					<option value = '300'>$300</option>
+					<option value = '400'>$400</option>
+					<option value = '500'>$500</option>
+					<option value = '600'>$600</option>
+				</select>
+				<input type = 'submit' value = 'Lend'/>
+			</form>
+		</td>
+	</tr>
+	<% end %>
+</table>
+
+<h1>List of People you lent money to</h1>
+<table>
+	<th>Name</th>
+	<th>Purpose</th>
+	<th>Description of Purpose</th>
+	<th>Amount needed</th>
+	<th>Amount Raised</th>
+	<th>Amount Lent</th>
+	<% @lender.histories.each do |h| %>
+		<tr>
+			<td><%= h.borrower.first_name + " " + h.borrower.last_name%></td>
+			<td><%= h.borrower.purpose %></td>
+			<td><%= h.borrower.description %></td>
+			<td><%= h.borrower.money %></td>
+			<td><%= h.borrower.raised %></td>
+			<td><%= h.amount %></td>
+		</tr>
+	<%end %>
+</table>
+<td> $
+
+
+
+
+

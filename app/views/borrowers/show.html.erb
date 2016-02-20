@@ -1,0 +1,28 @@
+<p>Name: <%= @borrower.first_name %> <%= @borrower.last_name %></p>
+<p>Amount Needed: <%= @borrower.money %></p>
+<% if @borrower.raised == nil
+	@raised = 0
+else  
+	@raised = @borrower.raised 
+end
+%>
+	<p>Amount Raised: <%= @raised %></p>
+
+<h2>List of people who have lent you money:</h2>
+<table>
+	<th>Name</th>
+	<th>Email</th>
+	<th>Amount Lent</th>
+	<% @borrower.lenders.each do |l| %>
+	<tr>
+		<td><%= l.first_name + " " + l.last_name %></td>
+		<td><%= l.email %></td>
+		<td> $
+		<% l.histories.each do |h| %>
+			<%= h.amount.to_s if h.borrower_id == session[:user_id] %>
+		<% end %>
+		</td>
+	</tr>
+	<% end %>
+
+</table>
